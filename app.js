@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const userRouter = require('./router/user')
 const userInfoRouter = require('./router/userinfo')
+const articleCateRouter = require('./router/artcate')
 const Joi = require('joi')
 const {jwtSecretKey} = require('./config')
 const { expressjwt } = require('express-jwt');
@@ -30,6 +31,7 @@ app.use(expressjwt({ secret: jwtSecretKey, algorithms: ["HS256"] }).unless({ pat
 app.use('/api', userRouter)
 // 以 /my 开头的接口，都是有权限的接口，需要进行 Token 身份认证
 app.use('/my', userInfoRouter)
+app.use('/my/article', articleCateRouter)
 
 app.use(function (err, req, res, next) {
     // Joi 参数校验失败
